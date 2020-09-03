@@ -986,9 +986,110 @@ bsNum : 사업자 번호
 
 ---
 
+# 모듈 : test
+
+---
+
+## 1. 최종 주문 등록 시간 갱신
+
+> `업체`의 `최종 주문 등록시간`을 `현재 시각`으로 갱신한다.
+
+---
+
+- PATH
+> '/renewOrderRegiTime/:bsNum'
+
+- METHOD
+> GET
+
+- PARAMETER
+```
+bsNum : 사업자 번호
+```
+
+- RETURN
+```
+{
+    result: 응답코드,
+    ( 1:성공, 2:에러 )    
+    msg: 처리결과 메세지,
+    data: {
+        lastOrderRegiTime: 최종 주문 등록시간
+    }
+}
+
+/*
+    {
+        "result": 1,
+        "msg": "ok",
+        "data": {
+            "lastOrderRegiTime": 1599115544683
+        }
+    }
+*/
+```
+
+---
 
 
+## 2. 업체 테이블 상태 변경
 
+> `업체`의 `테이블 점유 상태`를 설정한다.
 
-## test
+---
+
+- PATH
+> '/setTableVacancy'
+
+- METHOD
+> POST
+
+- PARAMETER
+```
+{
+    shopId: 업체 _id,
+    tableName: 테이블 명,
+    tableVacancy: 설정할 점유상태,
+    ( true: 사용가능, false: 사용불가)
+}
+```
+
+- RETURN
+```
+{
+    result: 응답코드,
+    ( 1:성공, 2:에러 )    
+    msg: 처리결과 메세지,
+    data: {
+        _id: 업체 _id,
+        shopName: 업체명,
+        tables: [{
+            _id: 테이블 _id,
+            tableName: 테이블 명,
+            tableSize: 테이블 가용 인원,
+            tableVacancy: 테이블 점유 상태
+        },...,{}]
+    }
+}
+
+/*
+    {
+        "result": 1,
+        "msg": "save well",
+        "data": {
+            "_id": "5c667f2e60800a0c92293357",
+            "shopName": "칼로리 스테이션",
+            "tables": [
+                {
+                    "_id": "5d5e226e4d7cc309bcfcbc74",
+                    "tableName": "1",
+                    "tableSize": "4",
+                    "tableVacancy": true
+                },
+            ]
+        }
+    }
+*/
+```
+---
 
